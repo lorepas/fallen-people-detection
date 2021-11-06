@@ -1,9 +1,5 @@
 /data/
 
-/trainlogs/
-
-/snapshots/
-
 /test_imgs/
 
 /__pycache__/
