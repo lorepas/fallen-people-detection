@@ -1,0 +1,57 @@
+ALL THE METRICS COME FROM SKLEARN
+
+//////TEST IMAGES\\\\\\\\\
+
+**********************************
+3X3 matrix (class 0 is undetected)
+**********************************
+
+The confusion matrix is: [[  0   0   0]
+                          [ 35 546  17]
+                          [ 33  94 234]]
+                          
+The accuracy is: 0.8133472367049009
+
+- precision, recall, fscore, support with MACRO average
+(0.5951319721115538, 0.5204143080814164, 0.5489245779087079, None)
+
+- precision, recall, fscore, support with MICRO average
+(0.8133472367049009, 0.8133472367049009, 0.8133472367049009, None)
+
+
+**********************************
+NOW UNDECTED ARE TREATED AS "FALL"
+**********************************
+
+The confusion matrix is: [[546  52]
+                          [ 94 267]]
+The accuracy is: 0.84775808
+The precision is: 0.85
+The recall is: 0.91
+The f1_score is: 0.88
+
+
+
+
+
+//////VALIDATION IMAGES\\\\\\\\\
+
+**********************************
+3X3 matrix (class 0 is undetected)
+**********************************
+
+The confusion matrix is: [[  0   0   0]
+                          [  6 918  41]
+                          [  3 148  98]]
+The accuracy is: 0.8369028006589786
+
+
+**********************************
+NOW UNDECTED ARE TREATED AS "FALL"
+**********************************
+The confusion matrix is: [[918  47]
+                         [148 101]]
+The accuracy is: 0.8393739703459637
+The precision is: 0.86
+The recall is: 0.95
+The f1_score is: 0.90
