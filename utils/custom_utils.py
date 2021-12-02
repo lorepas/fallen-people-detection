@@ -29,7 +29,10 @@ import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
 
 import sklearn
-from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score
+from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, precision_score, recall_score, classification_report, roc_auc_score
+
+import warnings
+warnings.filterwarnings("ignore")
 
 DATASET = 'data'
 TESTING = 'test_imgs'
@@ -84,7 +87,7 @@ def visualize_bbox(img, bbox, class_name, thickness=2):
     return img
 
 
-def visualize(image, bboxes, category_ids, category_id_to_name):
+def visualize(image, bboxes, category_ids, category_id_to_name, img_path):
     img = image.copy()
     for bbox, category_id in zip(bboxes, category_ids):
         class_name = category_id_to_name[category_id]
@@ -92,8 +95,10 @@ def visualize(image, bboxes, category_ids, category_id_to_name):
     plt.figure(figsize=(12, 12))
     plt.axis('off')
     plt.imshow(img)
+    if img_path is not False:
+        plt.savefig(os.path.join("snapshots",img_path))
     
-def visualize_images_and_bb(dataset_folder, dataset, rl):
+def visualize_images_and_bb(dataset_folder, dataset, rl, save=None):
     for l in rl:
         img_path = dataset['img_path'][l]
         image = cv2.imread(f'{dataset_folder}/{img_path}')
@@ -101,7 +106,12 @@ def visualize_images_and_bb(dataset_folder, dataset, rl):
         datas = dataset[dataset['img_path'] == img_path]
         bboxes = [[d['x0'], d['y0'], d['x1'], d['y1']] for _, d in datas.iterrows()]
         category_ids = [d['label'] for _,d in datas.iterrows()]
-        visualize(image, bboxes, category_ids, category_id_to_name)
+        if save is None:
+            visualize(image, bboxes, category_ids, category_id_to_name, False)
+        elif save == "virtual_images" or save == "test_images":
+            visualize(image, bboxes, category_ids, category_id_to_name, f'{save}/img_{l}.png')
+        else:
+            raise ValueError(f'save argument can be: None, test_images or virtual_images, not {save}')
         
 def visualize_bbox_tensor(img, bbox, class_name):
     if class_name == "fallen":
@@ -132,7 +142,7 @@ def visualize_from_tensor_and_bb(train_dataset, rl):
         img, target = train_dataset[i]
         visualize_from_tensor(img, target, category_id_to_name)
         
-def visualize_prediction(dataset, random_list):
+def visualize_prediction(dataset, random_list, model, device, path=None):
     for l in random_list:
         img,target = dataset[l]
         im = Image.fromarray(img.mul(255).permute(1, 2, 0).byte().numpy())
@@ -157,5 +167,10 @@ def visualize_prediction(dataset, random_list):
                 draw = ImageDraw.Draw(im)
                 draw.rectangle(((x0, y0),(x1,y1)), outline=color, width=3)
                 draw.text((x0, y0), text)
-
-        ImageShow.show(im)
+        if path is None:
+            ImageShow.show(im)
+        elif path == "pred_test_images" or path == "pred_virtual_images":
+            #ImageShow.show(im)
+            im.save(f'snapshots/{path}/pred_img_{l}.png')
+        else:
+            raise ValueError(f'save argument can be: None, pred_test_images or pred_virtual_images, not {path}')

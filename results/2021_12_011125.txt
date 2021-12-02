@@ -1,0 +1,48 @@
+==== TEST RESULT ====
+Length of ground truth labels: 959
+Length of predicted labels: 959
+The confusion matrix is: [[  0   0   0]
+ [ 35 546  17]
+ [ 33  94 234]]
+The accuracy is: 0.8133472367049009
+The confusion matrix is: [[546  52]
+ [ 94 267]]
+The accuracy is: 0.8477580813347236
+The precision is: 0.85
+The recall is: 0.91
+The f1_score is: 0.88
+Sum metrics:
+              precision    recall  f1-score   support
+
+           1       0.85      0.91      0.88       598
+           2       0.84      0.74      0.79       361
+
+    accuracy                           0.85       959
+   macro avg       0.85      0.83      0.83       959
+weighted avg       0.85      0.85      0.85       959
+
+ROC score: 0.8263278333132603
+==== VALID RESULT ====
+Length of ground truth labels: 1214
+Length of predicted labels: 1214
+The confusion matrix is: [[  0   0   0]
+ [  6 918  41]
+ [  3 148  98]]
+The accuracy is: 0.8369028006589786
+The confusion matrix is: [[918  47]
+ [148 101]]
+The accuracy is: 0.8393739703459637
+The precision is: 0.86
+The recall is: 0.95
+The f1_score is: 0.90
+Sum metrics:
+              precision    recall  f1-score   support
+
+           1       0.86      0.95      0.90       965
+           2       0.68      0.41      0.51       249
+
+    accuracy                           0.84      1214
+   macro avg       0.77      0.68      0.71      1214
+weighted avg       0.82      0.84      0.82      1214
+
+ROC score: 0.678458913373702

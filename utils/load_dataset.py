@@ -79,3 +79,23 @@ def get_labels_distribution(dataset):
 
 def load_testing(test_txt):
     return pd.read_csv(test_txt, sep=',', header=None, names=['img_path', 'x0', 'y0', 'x1', 'y1', 'label'])
+
+def split_train_valid(dataset):
+    images_ids = dataset['img_path'].unique()
+    split_len = round(len(images_ids)*0.8) #80% -> train & 20% -> val
+    train_ids = images_ids[:split_len]
+    valid_ids = images_ids[split_len:]
+    train = dataset[dataset['img_path'].isin(train_ids)]
+    valid = dataset[dataset['img_path'].isin(valid_ids)]
+    return train, valid
+
+def make_weights(dataset):
+    labels = list(dataset['label'].values)
+    class_counts = dataset['label'].value_counts().tolist()
+    num_samples = len(labels)
+    class_weights = [class_counts[1]/class_counts[i] for i in range(len(class_counts))]
+    weights = [class_weights[0] if l == 1 else class_weights[1] for l in labels]
+    dataset_grouped = dataset.copy()
+    dataset_grouped['weights'] = weights
+    train_grouped = dataset_grouped.groupby(['img_path']).mean()
+    return list(train_grouped['weights'].values)
