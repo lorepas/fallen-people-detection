@@ -36,6 +36,7 @@ warnings.filterwarnings("ignore")
 
 DATASET = 'data'
 TESTING = 'test_imgs'
+REAL_DATASET = 'real_dataset'
 
 FALLEN_COLOR = (255, 0, 0) # Red
 NO_FALLEN_COLOR = (0, 255, 0) #Green
@@ -45,6 +46,8 @@ BOX_COLOR = (0, 0, 0) #Black
 files = glob.glob('data/**/*.txt', recursive = True) #find all *.txt files
 
 target_txt = "train_dataset.txt"
+real_train_txt = "real_train.txt"
+real_valid_txt = "real_valid.txt"
 test_txt = "test_set.txt"
 category_id_to_name = {1: 'no fallen', 2: 'fallen'}
 original_stdout = sys.stdout

@@ -1,2 +1,0 @@
-Epoch: 1, Batch: 1, Loss: 1.85084867477417
-Epoch: 1, Batch: 2, Loss: 1.3381495475769043

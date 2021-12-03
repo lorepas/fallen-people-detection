@@ -2,6 +2,8 @@
 
 /test_imgs/
 
+/real_dataset/
+
 /__pycache__/
 
 /utils/__pycache__/
