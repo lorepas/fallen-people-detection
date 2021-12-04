@@ -1,0 +1,19 @@
+==== TEST RESULT ====
+|          | POSITIVE   | NEGATIVE   |
+|----------|------------|------------|
+| POSITIVE | TP: 323    | FP: 152    |
+| NEGATIVE | FN: 39     | TN: 445    |
+Accuracy: 0.80
+Recall: 0.89
+Precision: 0.68
+F1-score: 0.77
+
+==== VALID RESULT ====
+|          | POSITIVE   | NEGATIVE   |
+|----------|------------|------------|
+| POSITIVE | TP: 120    | FP: 19     |
+| NEGATIVE | FN: 13     | TN: 1062   |
+Accuracy: 0.97
+Recall: 0.90
+Precision: 0.86
+F1-score: 0.88
