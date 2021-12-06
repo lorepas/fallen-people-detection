@@ -21,11 +21,12 @@ model:
 
 train:
     log_file            : "trainlogs/real_train_log.txt"
-    batch_size          : 4
-    num_workers         : 4
+    batch_size          : 3
+    num_workers         : 8
     epochs              : 10
-    sampler             : true
-    checkpoint          : ""      # checkpoint to resume, useful for starting from an interrupted training
+    sampler             : false
+    path_saved_model    : "models/checkpoint_train_real.pth"
+    checkpoint          : ""      # checkpoint to eventually resume
     pretrained_model    : ""      # pre-trained model to resume
     lr                  : 0.005
     momentum            : 0.9

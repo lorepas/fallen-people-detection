@@ -4,23 +4,24 @@ from utils.custom_utils import *
 def get_dataset(cfg_dataset):
     if cfg_dataset['train']['virtual'] != "" and cfg_dataset['train']['real'] == "":
         print("Load only virtual dataset")
+        transforms = FallenPeople.train_transform()
         train_df = load_data(cfg_dataset['train']['virtual'])
     elif cfg_dataset['train']['virtual'] == "" and cfg_dataset['train']['real'] != "":
         print("Load only real dataset")
-        path = f"{cfg_dataset
+        transforms = FallenPeople.real_train_transform()
         train_df = load_data(cfg_dataset['train']['real'])
     else:
         print("Load real and virtual dataset!")
     test_df = load_data(cfg_dataset['test'])
     if cfg_dataset['validation']['valid'] == "":
         path_valid = cfg_dataset['root_train']
-        train, valid = split_train_valid(train_df, cfg_dataset['percentage_val'])
+        train, valid = split_train_valid(train_df, cfg_dataset['validation']['percentage_val'])
     else:
         train = train_df
         path_valid = cfg_dataset['root_valid']
         valid = load_data(cfg_dataset['validation']['valid'])
 
-    train_dt = FallenPeople(train, cfg_dataset['root_train'], FallenPeople.train_transform())
+    train_dt = FallenPeople(train, cfg_dataset['root_train'], transforms)
     valid_dt = FallenPeople(valid, path_valid, FallenPeople.valid_test_transform())
     test_dt = FallenPeople(test_df, cfg_dataset['root_test'], FallenPeople.valid_test_transform())
     return train, train_dt, valid_dt, test_dt
@@ -111,22 +112,36 @@ def train(args):
         lr_scheduler = None
     else:
         lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=cfg_train['lr_scheduler']['lr_step_size'],
-                                                                       gamma=cfg_train['lr_scheduler']['lr_gamma'])            
+                                                                       gamma=cfg_train['lr_scheduler']['lr_gamma'])
+    start_epoch = 0
     itr = 1
+
+    if cfg_train['checkpoint']:
+        print("Resuming checkpoint...")
+        checkpoint = torch.load(cfg_train['checkpoint'])
+        model.load_state_dict(checkpoint['model'])
+        optimizer.load_state_dict(checkpoint['optimizer'])
+        if lr_scheduler != None:
+            lr_scheduler.load_state_dict(checkpoint['lr_scheduler'])
+        start_epoch = checkpoint['epoch']
+        itr = checkpoint['itr']
+        print(f"From epoch: {start_epoch}")
+
     total_train_loss = []
     total_valid_loss = []
     losses_value = 0.0
     f_log = open(cfg_train['log_file'], "w")
-    early_stopping = EarlyStopping(patience=3, verbose=True, path="models/checkpoint_train_virtual.pth")
+    early_stopping = EarlyStopping(patience=3, verbose=True, path=cfg_train['path_saved_model'])
+    num_epochs = cfg_train['epochs']
     print("Training...\n")
-    for epoch in range(cfg_train['epochs']):
+    for epoch in range(start_epoch, num_epochs):
         start_time = time.time()
         # train ------------------------------
         running_corrects = 0
         model.train()
         train_loss = []
          
-        for images, targets in tqdm(train_data_loader, desc='Training...'):
+        for images, targets in tqdm(train_data_loader, desc=f'EPOCH [{epoch+1}]: '):
             images = list(image.to(device) for image in images)
             targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
             loss_dict = model(images, targets)
@@ -136,8 +151,6 @@ def train(args):
             optimizer.zero_grad()
             losses.backward()
             optimizer.step()
-            #f_log.write(f"Epoch: {epoch+1}, Batch: {itr}, Loss: {losses_value}\n")
-            #pbar.set_description(f"Epoch: {epoch+1}, Batch: {itr}, Loss: {losses_value}")
             itr += 1
         epoch_train_loss = np.mean(train_loss)
         total_train_loss.append(epoch_train_loss)
@@ -159,14 +172,14 @@ def train(args):
         epoch_valid_loss = np.mean(valid_loss)
         total_valid_loss.append(epoch_valid_loss)  
         # print losses ------------------------------
-        f_log.write("\nVALIDATION PHASE: ")
-        print("\nVALIDATION PHASE: ")
         f_log.write(f"Epoch Completed: {epoch+1}/{num_epochs}, Time: {time.time()-start_time}, "
               f"Train Loss: {epoch_train_loss}, Valid Loss: {epoch_valid_loss}\n")  
         print(f"Epoch Completed: {epoch+1}/{num_epochs}, Time: {time.time()-start_time}, "
               f"Train Loss: {epoch_train_loss}, Valid Loss: {epoch_valid_loss}")
 
         #mAP and accuracy over validation
+        f_log.write("\nVALIDATION PHASE: ")
+        print("\nVALIDATION PHASE: ")
         sys.stdout = f_log
         evaluate(model, valid_data_loader, device=device)
         classifier_performance(valid_dataset, model, device)
@@ -181,15 +194,21 @@ def train(args):
             classifier_performance(test_dataset, model, device)
             sys.stdout = original_stdout
             
-        early_stopping(epoch_valid_loss, model)
-        
+        checkpoint_dict = {
+                    'model': model.state_dict(),
+                    'optimizer': optimizer.state_dict(),
+                    'lr_scheduler': 
+                        lr_scheduler.state_dict() if lr_scheduler is not None else None,
+                    'epoch': epoch,
+                    'itr': epoch+1
+                }
+
+        early_stopping(epoch_valid_loss, checkpoint_dict)
+
         if early_stopping.early_stop:
             print("Early stopping")
             break
-        else:
-            print("Saving checkpoint...")
-            early_stopping.save_checkpoint(epoch_valid_loss, model)
-            
+
     f_log.close()
     print("Training completed!")
 

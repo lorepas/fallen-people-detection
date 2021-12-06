@@ -25,6 +25,7 @@ train:
     num_workers         : 4
     epochs              : 10
     sampler             : true
+    path_saved_model    : "models/checkpoint_train_virtual.pth"
     checkpoint          : ""      # checkpoint to resume, useful for starting from an interrupted training
     pretrained_model    : ""      # pre-trained model to resume
     lr                  : 0.005
