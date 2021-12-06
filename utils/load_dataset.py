@@ -98,9 +98,12 @@ def load_real_training(real_train_txt):
 def load_real_valid(real_valid_txt):
     return pd.read_csv(real_valid_txt, sep=',', header=None, names=['img_path', 'x0', 'y0', 'x1', 'y1', 'label'])
 
-def split_train_valid(dataset):
+def load_data(d):
+    return pd.read_csv(d, sep=',', header=None, names=['img_path', 'x0', 'y0', 'x1', 'y1', 'label'])
+
+def split_train_valid(dataset, split_perc):
     images_ids = dataset['img_path'].unique()
-    split_len = round(len(images_ids)*0.8) #80% -> train & 20% -> val
+    split_len = round(len(images_ids)*float(split_perc)) #80% -> train & 20% -> val
     train_ids = images_ids[:split_len]
     valid_ids = images_ids[split_len:]
     train = dataset[dataset['img_path'].isin(train_ids)]

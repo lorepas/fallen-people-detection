@@ -10,8 +10,6 @@
 
 /models/
 
-/*.py
-
 /*.sh
 
 /*.pth
