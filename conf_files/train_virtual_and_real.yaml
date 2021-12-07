@@ -1,16 +1,16 @@
 dataset:
     ensamble:
-        flag: false
-        train_virtual: ""
-        train_real: ""
-        valid_real: ""
-        split: ""
-    root_train: "real_dataset/train"
-    root_valid: "real_dataset/valid"
+        flag: true
+        train_virtual: "data"
+        train_real: "real_dataset/train"
+        valid_real: "real_dataset/valid"
+        split: 0.7
+    root_train: ""
+    root_valid: ""
     root_test: "test_imgs"
 
     train:
-        virtual: ""
+        virtual: "train_dataset.txt"
         real: "real_train.txt"
 
     test: "test_set.txt"
@@ -27,12 +27,12 @@ model:
     num_class            : 2
 
 train:
-    log_file            : "trainlogs/real_train_log.txt"
-    batch_size          : 3
+    log_file            : "trainlogs/virtual_and_real_train_log.txt"
+    batch_size          : 4
     num_workers         : 8
     epochs              : 10
     sampler             : false
-    path_saved_model    : "models/checkpoint_train_real.pth"
+    path_saved_model    : "models/checkpoint_train_virtual_and_real.pth"
     checkpoint          : ""      # checkpoint to eventually resume
     pretrained_model    : ""      # pre-trained model to resume
     lr                  : 0.005

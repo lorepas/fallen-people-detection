@@ -22,19 +22,19 @@ dataset:
 model:
     device               : "cuda"    # cpu or cuda
     backbone             : "resnet50" 
-    pretrained           : true
+    pretrained           : false
     pretrained_backbone  : false
     num_class            : 2
 
 train:
-    log_file            : "trainlogs/real_train_log.txt"
-    batch_size          : 3
+    log_file            : "trainlogs/real_over_virtual_train_log.txt"
+    batch_size          : 2
     num_workers         : 8
     epochs              : 10
     sampler             : false
-    path_saved_model    : "models/checkpoint_train_real.pth"
+    path_saved_model    : "models/checkpoint_train_real_over_virtual.pth"
     checkpoint          : ""      # checkpoint to eventually resume
-    pretrained_model    : ""      # pre-trained model to resume
+    pretrained_model    : "models/checkpoint_train_virtual.pth"      # pre-trained model to resume
     lr                  : 0.005
     momentum            : 0.9
     weight_decay        : 0.0005

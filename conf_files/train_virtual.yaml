@@ -1,4 +1,10 @@
 dataset:
+    ensamble:
+        flag: false
+        train_virtual: ""
+        train_real: ""
+        valid_real: ""
+        split: ""
     root_train: "data"
     root_valid: ""
     root_test: "test_imgs"
@@ -17,12 +23,13 @@ model:
     device               : "cuda"    # cpu or cuda
     backbone             : "resnet50" 
     pretrained           : true
+    pretrained_backbone  : false
     num_class            : 2
 
 train:
     log_file            : "trainlogs/virtual_train_log.txt"
-    batch_size          : 4
-    num_workers         : 4
+    batch_size          : 3
+    num_workers         : 8
     epochs              : 10
     sampler             : true
     path_saved_model    : "models/checkpoint_train_virtual.pth"

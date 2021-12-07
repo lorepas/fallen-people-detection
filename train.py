@@ -2,32 +2,47 @@ from utils.load_dataset import *
 from utils.custom_utils import *
 
 def get_dataset(cfg_dataset):
-    if cfg_dataset['train']['virtual'] != "" and cfg_dataset['train']['real'] == "":
-        print("Load only virtual dataset")
-        transforms = FallenPeople.train_transform()
-        train_df = load_data(cfg_dataset['train']['virtual'])
-    elif cfg_dataset['train']['virtual'] == "" and cfg_dataset['train']['real'] != "":
-        print("Load only real dataset")
-        transforms = FallenPeople.real_train_transform()
-        train_df = load_data(cfg_dataset['train']['real'])
-    else:
-        print("Load real and virtual dataset!")
-    test_df = load_data(cfg_dataset['test'])
-    if cfg_dataset['validation']['valid'] == "":
-        path_valid = cfg_dataset['root_train']
-        train, valid = split_train_valid(train_df, cfg_dataset['validation']['percentage_val'])
-    else:
-        train = train_df
-        path_valid = cfg_dataset['root_valid']
-        valid = load_data(cfg_dataset['validation']['valid'])
+    if cfg_dataset['ensamble']['flag'] == False:
+        if cfg_dataset['train']['virtual'] != "" and cfg_dataset['train']['real'] == "":
+            print("Load only virtual dataset")
+            transforms = FallenPeople.train_transform()
+            train_df = load_data(cfg_dataset['train']['virtual'])
+        elif cfg_dataset['train']['virtual'] == "" and cfg_dataset['train']['real'] != "":
+            print("Load only real dataset")
+            transforms = FallenPeople.real_train_transform()
+            train_df = load_data(cfg_dataset['train']['real'])
+#         else:
+#             print("Load real and virtual dataset!")
+        test_df = load_data(cfg_dataset['test'])
+        if cfg_dataset['validation']['valid'] == "":
+            path_valid = cfg_dataset['root_train']
+            train, valid = split_train_valid(train_df, cfg_dataset['validation']['percentage_val'])
+        else:
+            train = train_df
+            path_valid = cfg_dataset['root_valid']
+            valid = load_data(cfg_dataset['validation']['valid'])
 
-    train_dt = FallenPeople(train, cfg_dataset['root_train'], transforms)
-    valid_dt = FallenPeople(valid, path_valid, FallenPeople.valid_test_transform())
-    test_dt = FallenPeople(test_df, cfg_dataset['root_test'], FallenPeople.valid_test_transform())
-    return train, train_dt, valid_dt, test_dt
-
+        train_dt = FallenPeople(train, cfg_dataset['root_train'], transforms)
+        valid_dt = FallenPeople(valid, path_valid, FallenPeople.valid_test_transform())
+        test_dt = FallenPeople(test_df, cfg_dataset['root_test'], FallenPeople.valid_test_transform())
+        return train, train_dt, valid_dt, test_dt
+    else:
+        print("Load virtual and real dataset!")
+        train_df_vir = load_data(cfg_dataset['train']['virtual'])
+        train_df_real = load_data(cfg_dataset['train']['real'])
+        train_vir, valid_vir = split_train_valid(train_df, cfg_dataset['validation']['percentage_val'])
+        valid_real = load_data(cfg_dataset['validation']['valid'])
+        test_df = load_data(cfg_dataset['test'])
+        
+        train_dt_vir = FallenPeople(train_df_vir, cfg_dataset['ensamble']['train_virtual'], FallenPeople.train_transform())
+        train_dt_real = FallenPeople(train, cfg_dataset['ensamble']['train_real'], FallenPeople.real_train_transform())
+        valid_dt_vir = FallenPeople(valid, cfg_dataset['root_train'], FallenPeople.valid_test_transform())
+        valid_dt_real = FallenPeople(valid, cfg_dataset['validation']['valid'], FallenPeople.valid_test_transform())
+        test_dt = FallenPeople(test_df, cfg_dataset['root_test'], FallenPeople.valid_test_transform())
+        return train_dt_vir, train_dt_real, valid_dt_vir, valid_dt_real, test_dt
 
 def get_model(cfg):    
+    print("Loading model pretrained on resnet50...")
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=cfg['pretrained'])
     num_classes = 1 + cfg['num_class'] # num_class + background
     # get number of input features for the classifier
@@ -40,6 +55,73 @@ def get_model(cfg):
         device = torch.device(cfg['device'])
     model.to(device)
     return model, device
+
+def load_model(cfg, path):
+    print("Loading model pretrained over artificial dataset...")
+    if cfg['device'] == "cuda":
+        device = torch.device(cfg['device'] if torch.cuda.is_available() else "cpu")
+    else:
+        device = torch.device(cfg['device'])
+    # create a Faster R-CNN model without pre-trained
+    model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=cfg['pretrained'],
+                                                                 pretrained_backbone=cfg['pretrained_backbone'])
+    num_classes = 1 + cfg['num_class'] # num_class + background
+    # get number of input features for the classifier
+    in_features = model.roi_heads.box_predictor.cls_score.in_features
+    # replace the pre-trained model's head with a new one
+    model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
+    checkpoint = torch.load(path, map_location=device)
+    model.load_state_dict(checkpoint['model'])
+    model.to(device)
+    return model, device
+
+def prep_train_ensamble(cfg_dataset, cfg_train):
+
+    train_vir, train_real, valid_vir, valid_real, test_dt = get_dataset(cfg_dataset)
+    #training
+    train_len = max(len(train_vir),len(train_real))
+    len_vir_t = round(train_len*float(cfg_dataset['ensamble']['split'])) #split is for virtual over real
+    len_real_t = train_len - len_vir_t
+    train_vir = Subset(train_vir, torch.randperm(len(train_vir))[:len_vir_t])
+    train_real = Subset(train_real, torch.randperm(len(train_real))[:len_real_t])
+    #validation
+    valid_len = max(len(valid_vir),len(valid_real))
+    len_vir_v = round(valid_len*float(cfg_dataset['ensamble']['split'])) #split is for virtual over real
+    len_real_v = valid_len - len_vir_v
+    valid_vir = Subset(valid_vir, torch.randperm(len(valid_vir))[:len_vir_v])
+    valid_real = Subset(valid_real, torch.randperm(len(valid_real))[:len_real_v])
+    
+    train_dataset = ConcatDataset([train_vir,train_real])
+    valid_dataset = ConcatDataset([valid_vir,valid_real])
+    
+    def collate_fn(batch):
+        return tuple(zip(*batch))
+
+    
+    train_data_loader = DataLoader(
+      train_dataset,
+      batch_size=cfg_train['batch_size'],
+      num_workers = cfg_train['num_workers'],
+      shuffle = True,
+      collate_fn=collate_fn
+     )
+
+    valid_data_loader = DataLoader(
+      valid_dataset,
+      batch_size=cfg_train['batch_size'],
+      num_workers = cfg_train['num_workers'],
+      shuffle=False,
+      collate_fn=collate_fn
+    )
+
+    test_data_loader = DataLoader(
+      test_dataset,
+      batch_size=cfg_train['batch_size'],
+      num_workers = cfg_train['num_workers'],
+      shuffle=False,
+      collate_fn=collate_fn
+    )
+    return train_data_loader, valid_data_loader, test_data_loader
 
 def prep_train(cfg_dataset, cfg_train):
 
@@ -100,11 +182,19 @@ def train(args):
     cfg_model = cfg_file['model']
     cfg_dataset = cfg_file['dataset']
     print("Loading dataset...")
+    #check if it's necessary
     _,_,valid_dataset, test_dataset = get_dataset(cfg_dataset)
-    print("Loading model...")
-    model, device = get_model(cfg_model)
+    if cfg_train['pretrained_model'] == "":
+        model, device = get_model(cfg_model)
+    else:
+        model, device = load_model(cfg_model, cfg_train['pretrained_model'])
     print(f"Preparation to train the model in {device}...")
-    train_data_loader, valid_data_loader, test_data_loader = prep_train(cfg_dataset, cfg_train)
+    
+    if cfg_dataset['ensamble']['flag'] == False:
+        train_data_loader, valid_data_loader, test_data_loader = prep_train(cfg_dataset, cfg_train)
+    else:
+        train_data_loader, valid_data_loader, test_data_loader = prep_train_ensamble(cfg_dataset, cfg_train)
+        
     params = [p for p in model.parameters() if p.requires_grad]
     optimizer = torch.optim.SGD(params, lr=cfg_train['lr'], momentum=cfg_train['momentum'], weight_decay=cfg_train['weight_decay'])
 
