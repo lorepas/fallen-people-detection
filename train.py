@@ -30,14 +30,14 @@ def get_dataset(cfg_dataset):
         print("Load virtual and real dataset!")
         train_df_vir = load_data(cfg_dataset['train']['virtual'])
         train_df_real = load_data(cfg_dataset['train']['real'])
-        train_vir, valid_vir = split_train_valid(train_df, cfg_dataset['validation']['percentage_val'])
+        train_vir, valid_vir = split_train_valid(train_df_vir, cfg_dataset['validation']['percentage_val'])
         valid_real = load_data(cfg_dataset['validation']['valid'])
         test_df = load_data(cfg_dataset['test'])
         
-        train_dt_vir = FallenPeople(train_df_vir, cfg_dataset['ensamble']['train_virtual'], FallenPeople.train_transform())
-        train_dt_real = FallenPeople(train, cfg_dataset['ensamble']['train_real'], FallenPeople.real_train_transform())
-        valid_dt_vir = FallenPeople(valid, cfg_dataset['root_train'], FallenPeople.valid_test_transform())
-        valid_dt_real = FallenPeople(valid, cfg_dataset['validation']['valid'], FallenPeople.valid_test_transform())
+        train_dt_vir = FallenPeople(train_vir, cfg_dataset['ensamble']['train_virtual'], FallenPeople.train_transform())
+        train_dt_real = FallenPeople(train_df_real, cfg_dataset['ensamble']['train_real'], FallenPeople.real_train_transform())
+        valid_dt_vir = FallenPeople(valid_vir, cfg_dataset['ensamble']['train_virtual'], FallenPeople.valid_test_transform())
+        valid_dt_real = FallenPeople(valid_real, cfg_dataset['ensamble']['valid_real'], FallenPeople.valid_test_transform())
         test_dt = FallenPeople(test_df, cfg_dataset['root_test'], FallenPeople.valid_test_transform())
         return train_dt_vir, train_dt_real, valid_dt_vir, valid_dt_real, test_dt
 
@@ -77,23 +77,23 @@ def load_model(cfg, path):
 
 def prep_train_ensamble(cfg_dataset, cfg_train):
 
-    train_vir, train_real, valid_vir, valid_real, test_dt = get_dataset(cfg_dataset)
+    train_v, train_r, valid_v, valid_r, test_dataset = get_dataset(cfg_dataset)
     #training
-    train_len = max(len(train_vir),len(train_real))
+    train_len = max(len(train_v),len(train_r))
     len_vir_t = round(train_len*float(cfg_dataset['ensamble']['split'])) #split is for virtual over real
     len_real_t = train_len - len_vir_t
-    train_vir = Subset(train_vir, torch.randperm(len(train_vir))[:len_vir_t])
-    train_real = Subset(train_real, torch.randperm(len(train_real))[:len_real_t])
+    train_vir = Subset(train_v, torch.randperm(len(train_v))[:len_vir_t])
+    train_real = Subset(train_r, torch.randperm(len(train_r))[:len_real_t])
     #validation
-    valid_len = max(len(valid_vir),len(valid_real))
+    valid_len = max(len(valid_v),len(valid_r))
     len_vir_v = round(valid_len*float(cfg_dataset['ensamble']['split'])) #split is for virtual over real
     len_real_v = valid_len - len_vir_v
-    valid_vir = Subset(valid_vir, torch.randperm(len(valid_vir))[:len_vir_v])
-    valid_real = Subset(valid_real, torch.randperm(len(valid_real))[:len_real_v])
+    valid_vir = Subset(valid_v, torch.randperm(len(valid_v))[:len_vir_v])
+    valid_real = Subset(valid_r, torch.randperm(len(valid_r))[:len_real_v])
     
     train_dataset = ConcatDataset([train_vir,train_real])
     valid_dataset = ConcatDataset([valid_vir,valid_real])
-    
+
     def collate_fn(batch):
         return tuple(zip(*batch))
 
@@ -102,7 +102,7 @@ def prep_train_ensamble(cfg_dataset, cfg_train):
       train_dataset,
       batch_size=cfg_train['batch_size'],
       num_workers = cfg_train['num_workers'],
-      shuffle = True,
+      shuffle=True,
       collate_fn=collate_fn
      )
 
@@ -121,7 +121,7 @@ def prep_train_ensamble(cfg_dataset, cfg_train):
       shuffle=False,
       collate_fn=collate_fn
     )
-    return train_data_loader, valid_data_loader, test_data_loader
+    return valid_dataset, test_dataset, train_data_loader, valid_data_loader, test_data_loader
 
 def prep_train(cfg_dataset, cfg_train):
 
@@ -182,8 +182,7 @@ def train(args):
     cfg_model = cfg_file['model']
     cfg_dataset = cfg_file['dataset']
     print("Loading dataset...")
-    #check if it's necessary
-    _,_,valid_dataset, test_dataset = get_dataset(cfg_dataset)
+    
     if cfg_train['pretrained_model'] == "":
         model, device = get_model(cfg_model)
     else:
@@ -191,10 +190,11 @@ def train(args):
     print(f"Preparation to train the model in {device}...")
     
     if cfg_dataset['ensamble']['flag'] == False:
+        _,_,valid_dataset, test_dataset = get_dataset(cfg_dataset)
         train_data_loader, valid_data_loader, test_data_loader = prep_train(cfg_dataset, cfg_train)
     else:
-        train_data_loader, valid_data_loader, test_data_loader = prep_train_ensamble(cfg_dataset, cfg_train)
-        
+        valid_dataset, test_dataset, train_data_loader, valid_data_loader, test_data_loader = prep_train_ensamble(cfg_dataset, cfg_train)
+
     params = [p for p in model.parameters() if p.requires_grad]
     optimizer = torch.optim.SGD(params, lr=cfg_train['lr'], momentum=cfg_train['momentum'], weight_decay=cfg_train['weight_decay'])
 

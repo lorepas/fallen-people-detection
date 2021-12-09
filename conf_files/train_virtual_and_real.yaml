@@ -29,7 +29,7 @@ model:
 train:
     log_file            : "trainlogs/virtual_and_real_train_log.txt"
     batch_size          : 4
-    num_workers         : 8
+    num_workers         : 4
     epochs              : 10
     sampler             : false
     path_saved_model    : "models/checkpoint_train_virtual_and_real.pth"

@@ -18,8 +18,7 @@ from tabulate import tabulate
 from utils.engine import evaluate
 
 import torch
-from torch.utils.data import Dataset
-from torch.utils.data import DataLoader
+from torch.utils.data import Dataset, DataLoader, Subset, ConcatDataset, ChainDataset
 import torch.nn as nn
 
 import torchvision
