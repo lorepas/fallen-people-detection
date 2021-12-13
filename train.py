@@ -43,7 +43,13 @@ def get_dataset(cfg_dataset):
 
 def get_model(cfg):    
     print("Loading model pretrained on resnet50...")
-    model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=cfg['pretrained'])
+    if cfg['trainable_layers'] == "":
+        model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=cfg['pretrained'],
+                                                                    pretrained_backbone=cfg['pretrained_backbone'])
+    else:
+        model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=cfg['pretrained'], 
+                                                                     pretrained_backbone=cfg['pretrained_backbone'],
+                                                                     trainable_backbone_layers= cfg['trainable_layers'])
     num_classes = 1 + cfg['num_class'] # num_class + background
     # get number of input features for the classifier
     in_features = model.roi_heads.box_predictor.cls_score.in_features
@@ -272,16 +278,16 @@ def train(args):
         print("\nVALIDATION PHASE: ")
         sys.stdout = f_log
         evaluate(model, valid_data_loader, device=device)
-        classifier_performance(valid_dataset, model, device)
+        #classifier_performance(valid_dataset, model, device)
         sys.stdout = original_stdout
         
         #mAP and accuracy over testing every 2 epochs
-        if (epoch+1) % 2 == 0:
+        if (epoch+1) % 3 == 0:
             f_log.write(f"\nTESTING PHASE EPOCH {epoch+1}: ")  
             print(f"\nTESTING PHASE EPOCH {epoch+1}: ")
             sys.stdout = f_log
             evaluate(model, test_data_loader, device=device)
-            classifier_performance(test_dataset, model, device)
+            #classifier_performance(test_dataset, model, device)
             sys.stdout = original_stdout
             
         checkpoint_dict = {
@@ -301,6 +307,16 @@ def train(args):
 
     f_log.close()
     print("Training completed!")
+    if cfg_train['checkpoint'] == "":
+        plt.figure(figsize=(8, 5))
+        plt.plot(total_train_loss, label="Train Loss")
+        plt.plot(total_valid_loss, label="Valid Loss")
+        plt.xlabel("Epochs")
+        plt.ylabel("Loss")
+        plt.legend()
+        plt.savefig(cfg_train['plot'])
+        plt.show()
+        print("Plot training/validation loss saved!")
 
 if __name__ == "__main__":
     import argparse

@@ -25,10 +25,11 @@ model:
     pretrained           : true
     pretrained_backbone  : false
     num_class            : 2
+    trainable_layers     : ""
 
 train:
     log_file            : "trainlogs/virtual_train_log.txt"
-    batch_size          : 3
+    batch_size          : 2
     num_workers         : 8
     epochs              : 10
     sampler             : true
@@ -42,4 +43,4 @@ train:
         flag                : false
         lr_gamma            : 0.1
         lr_step_size        : 3
-    mixed_batch         : false
+    plot                : "snapshots/plots/loss_virtual.png"
