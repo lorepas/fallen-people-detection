@@ -211,6 +211,8 @@ def train(args):
                                                                        gamma=cfg_train['lr_scheduler']['lr_gamma'])
     start_epoch = 0
     itr = 1
+    total_train_loss = []
+    total_valid_loss = []
 
     if cfg_train['checkpoint']:
         print("Resuming checkpoint...")
@@ -221,10 +223,10 @@ def train(args):
             lr_scheduler.load_state_dict(checkpoint['lr_scheduler'])
         start_epoch = checkpoint['epoch']
         itr = checkpoint['itr']
+        total_train_loss = checkpoint['total_train_loss']
+        total_valid_loss = checkpoint['total_valid_loss']
         print(f"From epoch: {start_epoch}")
 
-    total_train_loss = []
-    total_valid_loss = []
     losses_value = 0.0
     f_log = open(cfg_train['log_file'], "w")
     early_stopping = EarlyStopping(patience=3, verbose=True, path=cfg_train['path_saved_model'])
@@ -296,7 +298,9 @@ def train(args):
                     'lr_scheduler': 
                         lr_scheduler.state_dict() if lr_scheduler is not None else None,
                     'epoch': epoch,
-                    'itr': epoch+1
+                    'itr': epoch+1,
+                    'total_train_loss' : total_train_loss,  
+                    'total_valid_loss' : total_valid_loss
                 }
 
         early_stopping(epoch_valid_loss, checkpoint_dict)
@@ -307,7 +311,8 @@ def train(args):
 
     f_log.close()
     print("Training completed!")
-    if cfg_train['checkpoint'] == "":
+    #plot valid-train loss
+    if len(total_train_loss) > 0 and len(total_valid_loss) > 0:
         plt.figure(figsize=(8, 5))
         plt.plot(total_train_loss, label="Train Loss")
         plt.plot(total_valid_loss, label="Valid Loss")
