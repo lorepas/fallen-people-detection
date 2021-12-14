@@ -1,6 +1,7 @@
 | Test | mAP@[0.5:0.95] | mAP@[0.5] | TP | FN | FP | Precision | Recall | F1-score |
 |:---:|:---:|:---:|:---:|:---:|---|---|---|---|
 | Baseline | 0.49 | 0.95 | 374 | 17 | 11 | 0.97 | 0.96 | 0.96 |
+| Only virtual | 0.40 | 0.72 | 49 | 342 | 0 | 1 | 0.13 | 0.22 |
 | Fine-tuning virtual than real | 0.41 | 0.84 | 354 | 37 | 61 | 0.85 | 0.91 | 0.88 |
 | Fine-tuning virtual and real | 0.51 | 0.94 | 357 | 34 | 11 | 0.97 | 0.91 | 0.94 |
 | Paper approach fall classification (only SVM) | ///////////// | //////// | 390 | 1 | 0 | 1 | 0.99 | /////// |
