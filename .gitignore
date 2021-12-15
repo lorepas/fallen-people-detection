@@ -2,6 +2,10 @@
 
 /test_imgs/
 
+/test_ufd/
+
+/test_elderly/
+
 /real_dataset/
 
 /__pycache__/

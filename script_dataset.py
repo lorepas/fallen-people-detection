@@ -159,6 +159,78 @@ def build_test(filename):
         fw.close()
         print("Test dataset created!")
         
+def build_test_udf(filename):
+
+    if os.path.exists(filename):
+        print("File already created")    
+    else:
+        files = glob.glob('test_ufd/*.txt', recursive = True) #find all *.txt files
+        fw = open(filename,'w')
+        i = 0
+        print("Creating test dataset...")
+        for fi in files:
+            f = open(fi, 'r')
+            file_text = f.read()
+            file_name = fi.split("/")[-1] #the part before the . with the name of the folder
+            if file_text == "": #discard empty files
+                name = file_name.split(".")[0] + ".png"
+                image = cv2.imread(name)
+                fw.write(name + ',' + str(0) + ',' + str(0) + "," + str(0) + "," + str(0) + "," + str(1) + "\n")
+                continue
+            file_text = file_text.strip('\n') #remove possible newline character at the end of file
+            lines = file_text.split('\n')      
+            for l in lines:
+                name = file_name.split(".")[0] + ".png"
+                image = cv2.imread(name)
+                label = l.split(" ")[0]
+                x0 = l.split(" ")[1]
+                x1 = l.split(" ")[2]
+                y0 = l.split(" ")[3]
+                y1 = l.split(" ")[4]
+
+                if int(label) == -1: #label 1 -> NO FALL
+                    fw.write(name + ',' + str(x0) + ',' + str(y0) + "," + str(x1) + "," + str(y1) + "," + str(1) + "\n")
+                elif int(label) == 1: #label 2 -> FALL
+                    fw.write(name + ',' + str(x0) + ',' + str(y0) + "," + str(x1) + "," + str(y1) + "," + str(2) + "\n")
+        fw.close()
+        print("Test dataset created!")
+        
+def build_test_elderly(filename):
+
+    if os.path.exists(filename):
+        print("File already created")    
+    else:
+        files = glob.glob('test_elderly/*.txt', recursive = True) #find all *.txt files
+        fw = open(filename,'w')
+        i = 0
+        print("Creating test dataset...")
+        for fi in files:
+            f = open(fi, 'r')
+            file_text = f.read()
+            file_name = fi.split("/")[-1] #the part before the . with the name of the folder
+            if file_text == "": #discard empty files
+                name = file_name.split(".")[0] + ".png"
+                image = cv2.imread(name)
+                fw.write(name + ',' + str(0) + ',' + str(0) + "," + str(0) + "," + str(0) + "," + str(1) + "\n")
+                continue
+            file_text = file_text.strip('\n') #remove possible newline character at the end of file
+            lines = file_text.split('\n')      
+            for l in lines:
+                name = file_name.split(".")[0] + ".png"
+                image = cv2.imread(name)
+                label = l.split(" ")[0]
+                x0 = l.split(" ")[1]
+                x1 = l.split(" ")[2]
+                y0 = l.split(" ")[3]
+                y1 = l.split(" ")[4]
+
+                if int(label) == -1: #label 1 -> NO FALL
+                    fw.write(name + ',' + str(x0) + ',' + str(y0) + "," + str(x1) + "," + str(y1) + "," + str(1) + "\n")
+                elif int(label) == 1: #label 2 -> FALL
+                    fw.write(name + ',' + str(x0) + ',' + str(y0) + "," + str(x1) + "," + str(y1) + "," + str(2) + "\n")
+        fw.close()
+        print("Test dataset created!")
+        
         
 if __name__ == "__main__":
     import argparse
@@ -175,7 +247,7 @@ if __name__ == "__main__":
     if ".txt" not in args.filename:
         print("Insert the name with the extension")
         sys.exit(1)
-    if dt != "train_real" and dt != "train_virtual" and dt != "test":
+    if dt != "train_real" and dt != "train_virtual" and dt != "test" and dt != "test_ufd" and dt != "test_elderly":
         print("Insert \"train_real\",\"train_virtual\" or \"test\"")
         sys.exit(1)
     elif dt == "train_real":
@@ -184,3 +256,7 @@ if __name__ == "__main__":
         build_virtual(args.filename)
     elif dt == "test":
         build_test(args.filename)
+    elif dt == "test_ufd":
+        build_test_udf(args.filename)
+    elif dt == "test_elderly":
+        build_test_elderly(args.filename)
