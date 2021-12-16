@@ -1,6 +1,7 @@
 from utils.load_dataset import *
 from utils.custom_utils import *
 
+DELTA = 1
 
 def build_virtual(filename):
     
@@ -145,7 +146,7 @@ def build_test(filename):
             file_name = fi.split("/")[-1] #the part before the . with the name of the folder
             for l in lines:
                 name = file_name.split(".")[0] + ".png"
-                image = cv2.imread(name)
+                #image = cv2.imread(os.path.join('test_imgs',name))
                 label = l.split(" ")[0]
                 x0 = l.split(" ")[1]
                 x1 = l.split(" ")[2]
@@ -173,15 +174,16 @@ def build_test_udf(filename):
             file_text = f.read()
             file_name = fi.split("/")[-1] #the part before the . with the name of the folder
             if file_text == "": #discard empty files
+                i += 1
                 name = file_name.split(".")[0] + ".png"
-                image = cv2.imread(name)
-                fw.write(name + ',' + str(0) + ',' + str(0) + "," + str(0) + "," + str(0) + "," + str(1) + "\n")
+                #image = cv2.imread(os.path.join('test_ufd',name))
+                fw.write(name + ',' + str(DELTA) + ',' + str(DELTA) + "," + str(0) + "," + str(0) + "," + str(1) + "\n")
                 continue
             file_text = file_text.strip('\n') #remove possible newline character at the end of file
             lines = file_text.split('\n')      
             for l in lines:
                 name = file_name.split(".")[0] + ".png"
-                image = cv2.imread(name)
+                #image = cv2.imread(os.path.join('test_ufd',name))
                 label = l.split(" ")[0]
                 x0 = l.split(" ")[1]
                 x1 = l.split(" ")[2]
@@ -193,6 +195,7 @@ def build_test_udf(filename):
                 elif int(label) == 1: #label 2 -> FALL
                     fw.write(name + ',' + str(x0) + ',' + str(y0) + "," + str(x1) + "," + str(y1) + "," + str(2) + "\n")
         fw.close()
+        print(f"Empty annotations are: {i}")
         print("Test dataset created!")
         
 def build_test_elderly(filename):
@@ -202,33 +205,46 @@ def build_test_elderly(filename):
     else:
         files = glob.glob('test_elderly/*.txt', recursive = True) #find all *.txt files
         fw = open(filename,'w')
-        i = 0
+        e = 0
+        nv = 0
         print("Creating test dataset...")
         for fi in files:
             f = open(fi, 'r')
             file_text = f.read()
             file_name = fi.split("/")[-1] #the part before the . with the name of the folder
             if file_text == "": #discard empty files
+                e += 1
                 name = file_name.split(".")[0] + ".png"
-                image = cv2.imread(name)
-                fw.write(name + ',' + str(0) + ',' + str(0) + "," + str(0) + "," + str(0) + "," + str(1) + "\n")
+                #image = cv2.imread(os.path.join('test_elderly',name))
+                fw.write(name + ',' + str(0) + ',' + str(0) + "," + str(DELTA) + "," + str(DELTA) + "," + str(1) + "\n")
                 continue
             file_text = file_text.strip('\n') #remove possible newline character at the end of file
             lines = file_text.split('\n')      
             for l in lines:
                 name = file_name.split(".")[0] + ".png"
-                image = cv2.imread(name)
+                image = cv2.imread(os.path.join('test_elderly',name))
+                y,x,_ = image.shape
+                
                 label = l.split(" ")[0]
                 x0 = l.split(" ")[1]
                 x1 = l.split(" ")[2]
                 y0 = l.split(" ")[3]
                 y1 = l.split(" ")[4]
+                
+                if int(x0) < 0 or int(x1) > x:
+                    nv += 1
+                    continue
+                if int(y0) < 0 or int(y1) > y:
+                    nv += 1
+                    continue
 
                 if int(label) == -1: #label 1 -> NO FALL
                     fw.write(name + ',' + str(x0) + ',' + str(y0) + "," + str(x1) + "," + str(y1) + "," + str(1) + "\n")
                 elif int(label) == 1: #label 2 -> FALL
                     fw.write(name + ',' + str(x0) + ',' + str(y0) + "," + str(x1) + "," + str(y1) + "," + str(2) + "\n")
         fw.close()
+        print(f"Empty annotations are: {e}")
+        print(f"Not valid and discard annotations are: {nv}")
         print("Test dataset created!")
         
         
