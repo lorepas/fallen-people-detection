@@ -9,27 +9,8 @@ These results take only the fall detection. In test set there are 391 falls.
 | Fall detection with pose correction (YOLO + SVM)  | 360 | 31 | 17 | 0.95 | 0.92 |
 
 # COMPARE THE FALLEN RESULTS BETWEEN DATASETS
-## FPDS
-| Test | thr | mAP@[0.5:0.95] | mAP@[0.5] | TP | FN | FP | Precision | Recall | F1-score |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Only real | 0.8 | 0.49 | 0.95 | 371 | 20 | 5 | 0.99 | 0.95 | 0.97 |
-| Only virtual | 0.4 | 0.40 | 0.72 | 254 | 137 | 94 | 0.73 | 0.65 | 0.69 |
-| Fine-tuning virtual than real | 0.6 | 0.41 | 0.84 | 362 | 29 | 73 | 0.83 | 0.93 | 0.88 |
-| Fine-tuning virtual and real | 0.6 | 0.51 | 0.94 | 367 | 24 | 18 | 0.95 | 0.94 | 0.95 |
-## UP-FALL DETECTION
-| Test | thr | mAP@[0.5:0.95] | mAP@[0.5] | TP | FN | FP | Precision | Recall | F1-score |
-|:---:|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Only real | 0.9 | 0.59 | 0.93 | 179 | 0 | 132 | 0.58 | 1.00 | 0.73 |
-| Only virtual | 0.2 | 0.47 | 0.80 | 123 | 56 | 41 | 0.75 | 0.69 | 0.72 |
-| Fine-tuning virtual than real | 0.9 | 0.65 | 0.99 | 177 | 2 | 1 | 0.99 | 0.99 | 0.99 |
-| Fine-tuning virtual and real | 0.8 | 0.62 | 0.98 | 174 | 5 | 4 | 0.98 | 0.97 | 0.97 |
-## ELDERLY
-| Test | thr | mAP@[0.5:0.95] | mAP@[0.5] | TP | FN | FP | Precision | Recall | F1-score |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Only real | 0.8 | 0.16 | 0.4 | 250 | 22 | 25 | 0.91 | 0.92 | 0.91 |
-| Only virtual | 0.3 | 0.07 | 0.18 | 199 | 73 | 194 | 0.51 | 0.73 | 0.60 |
-| Fine-tuning virtual than real | 0.8 | 0.11 | 0.3 | 228 | 44 | 61 | 0.79 | 0.84 | 0.81 |
-| Fine-tuning virtual and real | 0.8 | 0.14 | 0.33 | 262 | 10 | 121 | 0.68 | 0.96 | 0.80 |
+
+![comparison](./snapshots/perf_comp.png)
 
 # TEST FPDS RESULTS
 
