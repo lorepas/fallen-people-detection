@@ -54,7 +54,7 @@ class FallenPeople(Dataset):
     
     def train_transform():
         return A.Compose([
-            A.RandomCrop(width=450, height=450, p=0.6),
+            A.RandomCrop(width=640, height=480, p=0.6),
             A.HorizontalFlip(p=0.5),
             A.OneOf([
                 A.RandomBrightnessContrast(p=0.2),
@@ -89,17 +89,9 @@ def get_values(dataset):
 def get_labels_distribution(dataset):
     return dataset['label'].value_counts()
 
-def load_testing(test_txt):
-    return pd.read_csv(test_txt, sep=',', header=None, names=['img_path', 'x0', 'y0', 'x1', 'y1', 'label'])
-
-def load_real_training(real_train_txt):
-    return pd.read_csv(real_train_txt, sep=',', header=None, names=['img_path', 'x0', 'y0', 'x1', 'y1', 'label'])
-
-def load_real_valid(real_valid_txt):
-    return pd.read_csv(real_valid_txt, sep=',', header=None, names=['img_path', 'x0', 'y0', 'x1', 'y1', 'label'])
-
 def load_data(d):
-    return pd.read_csv(d, sep=',', header=None, names=['img_path', 'x0', 'y0', 'x1', 'y1', 'label'])
+    path = os.path.join("datasets",d)
+    return pd.read_csv(path, sep=',', header=None, names=['img_path', 'x0', 'y0', 'x1', 'y1', 'label'])
 
 def split_train_valid(dataset, split_perc):
     images_ids = dataset['img_path'].unique()

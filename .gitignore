@@ -6,6 +6,8 @@
 
 /test_elderly/
 
+/test_vfp/
+
 /real_dataset/
 
 /__pycache__/
@@ -13,6 +15,8 @@
 /utils/__pycache__/
 
 /models/
+
+/temp_files/
 
 /*.sh
 

@@ -171,7 +171,7 @@ def prep_train(cfg_dataset, cfg_train):
       shuffle=False,
       collate_fn=collate_fn
     )
-    return train_data_loader, valid_data_loader, test_data_loader
+    return valid_dataset, test_dataset, train_data_loader, valid_data_loader, test_data_loader
 
 def train(args):
 
@@ -196,8 +196,7 @@ def train(args):
     print(f"Preparation to train the model in {device}...")
     
     if cfg_dataset['ensamble']['flag'] == False:
-        _,_,valid_dataset, test_dataset = get_dataset(cfg_dataset)
-        train_data_loader, valid_data_loader, test_data_loader = prep_train(cfg_dataset, cfg_train)
+        valid_dataset, test_dataset, train_data_loader, valid_data_loader, test_data_loader = prep_train(cfg_dataset, cfg_train)
     else:
         valid_dataset, test_dataset, train_data_loader, valid_data_loader, test_data_loader = prep_train_ensamble(cfg_dataset, cfg_train)
 
@@ -279,7 +278,8 @@ def train(args):
         f_log.write("\nVALIDATION PHASE: ")
         print("\nVALIDATION PHASE: ")
         sys.stdout = f_log
-        evaluate(model, valid_data_loader, device=device)
+        elem = evaluate(model, valid_data_loader, device=device)
+        elem.summarize()
         #classifier_performance(valid_dataset, model, device)
         sys.stdout = original_stdout
         
@@ -288,7 +288,8 @@ def train(args):
             f_log.write(f"\nTESTING PHASE EPOCH {epoch+1}: ")  
             print(f"\nTESTING PHASE EPOCH {epoch+1}: ")
             sys.stdout = f_log
-            evaluate(model, test_data_loader, device=device)
+            el = evaluate(model, test_data_loader, device=device)
+            el.summarize()
             #classifier_performance(test_dataset, model, device)
             sys.stdout = original_stdout
             

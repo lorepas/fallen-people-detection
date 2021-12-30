@@ -10,7 +10,7 @@ def build_virtual(filename):
     else:
         files = glob.glob('data/**/*.txt', recursive = True) #find all *.txt files    
         #FILES NOT ORIG (normalized)
-        fw = open(filename,'w')
+        fw = open(os.path.join("datasets",filename),'w')
         i = 0
         print("Creating virtual dataset...")
         for fi in tqdm(files):
@@ -56,7 +56,7 @@ def build_real(filename):
         filenamev = filename[0]+"_valid.txt"
         filenamet = filename[0]+"_train.txt"
         files = glob.glob('real_dataset/valid/**/*.png', recursive = True) #find all *.png files
-        fw = open(filenamev,'w')
+        fw = open(os.path.join("datasets",filenamev),'w')
         i = 0
         print("Creating validation dataset...")
         for fi in tqdm(files):
@@ -92,7 +92,7 @@ def build_real(filename):
         print("Validation dataset completed!")
         
         files = glob.glob('real_dataset/train/**/*.png', recursive = True) #find all *.txt files
-        fw = open(filenamet,'w')
+        fw = open(os.path.join("datasets",filenamet),'w')
         i = 0
         print("Creating training dataset...")
         for fi in tqdm(files):
@@ -133,7 +133,7 @@ def build_test(filename):
         print("File already created")    
     else:
         files = glob.glob('test_imgs/*.txt', recursive = True) #find all *.txt files
-        fw = open(filename,'w')
+        fw = open(os.path.join("datasets",filename),'w')
         i = 0
         print("Creating test dataset...")
         for fi in files:
@@ -166,7 +166,7 @@ def build_test_udf(filename):
         print("File already created")    
     else:
         files = glob.glob('test_ufd/*.txt', recursive = True) #find all *.txt files
-        fw = open(filename,'w')
+        fw = open(os.path.join("datasets",filename),'w')
         i = 0
         print("Creating test dataset...")
         for fi in files:
@@ -204,7 +204,7 @@ def build_test_elderly(filename):
         print("File already created")    
     else:
         files = glob.glob('test_elderly/*.txt', recursive = True) #find all *.txt files
-        fw = open(filename,'w')
+        fw = open(os.path.join("datasets",filename),'w')
         e = 0
         nv = 0
         print("Creating test dataset...")
@@ -214,9 +214,6 @@ def build_test_elderly(filename):
             file_name = fi.split("/")[-1] #the part before the . with the name of the folder
             if file_text == "": #discard empty files
                 e += 1
-                name = file_name.split(".")[0] + ".png"
-                #image = cv2.imread(os.path.join('test_elderly',name))
-                fw.write(name + ',' + str(0) + ',' + str(0) + "," + str(DELTA) + "," + str(DELTA) + "," + str(1) + "\n")
                 continue
             file_text = file_text.strip('\n') #remove possible newline character at the end of file
             lines = file_text.split('\n')      
@@ -231,10 +228,10 @@ def build_test_elderly(filename):
                 y0 = l.split(" ")[3]
                 y1 = l.split(" ")[4]
                 
-                if int(x0) < 0 or int(x1) > x:
+                if float(x0) < 0 or float(x1) > x:
                     nv += 1
                     continue
-                if int(y0) < 0 or int(y1) > y:
+                if float(y0) < 0 or float(y1) > y:
                     nv += 1
                     continue
 

@@ -228,7 +228,7 @@ def visualize_from_tensor_and_bb(train_dataset, rl):
 #             im.save(f'snapshots/{path}/pred_img_{l}.png')
 #         else:
 #             raise ValueError(f'save argument can be: None, pred_test_images or pred_virtual_images, not {path}')
-            
+'''            
 # ---------------------NEW ACCURACY----------------------------------
 def load_saved_model(path):
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
@@ -325,3 +325,4 @@ def classifier_performance(dataset, model, device, tr = 0.7):
     print(f"Precision: {precision:.2f}")
     print(f"F1-score: {f1_score:.2f}")
     return accuracy, tn, tp, fn, fp
+'''

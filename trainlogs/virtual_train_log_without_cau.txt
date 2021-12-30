@@ -1,0 +1,329 @@
+Epoch Completed: 1/10, Time: 1781.450922012329, Train Loss: 0.41504280584315645, Valid Loss: 0.5032729382459473
+
+VALIDATION PHASE: creating index...
+index created!
+Test:  [  0/607]  eta: 0:32:27  model_time: 0.3055 (0.3055)  evaluator_time: 1.1235 (1.1235)  time: 3.2080  data: 1.7270  max mem: 3611
+Test:  [100/607]  eta: 0:02:18  model_time: 0.1906 (0.1917)  evaluator_time: 0.0086 (0.0217)  time: 0.2151  data: 0.0084  max mem: 3611
+Test:  [200/607]  eta: 0:01:40  model_time: 0.1928 (0.1928)  evaluator_time: 0.0117 (0.0160)  time: 0.2200  data: 0.0097  max mem: 3611
+Test:  [300/607]  eta: 0:01:12  model_time: 0.1939 (0.1932)  evaluator_time: 0.0056 (0.0144)  time: 0.2130  data: 0.0084  max mem: 3611
+Test:  [400/607]  eta: 0:00:48  model_time: 0.1957 (0.1934)  evaluator_time: 0.0127 (0.0171)  time: 0.2209  data: 0.0086  max mem: 3611
+Test:  [500/607]  eta: 0:00:24  model_time: 0.1948 (0.1935)  evaluator_time: 0.0098 (0.0161)  time: 0.2198  data: 0.0092  max mem: 3611
+Test:  [600/607]  eta: 0:00:01  model_time: 0.1929 (0.1936)  evaluator_time: 0.0063 (0.0151)  time: 0.2139  data: 0.0092  max mem: 3611
+Test:  [606/607]  eta: 0:00:00  model_time: 0.1929 (0.1936)  evaluator_time: 0.0080 (0.0151)  time: 0.2176  data: 0.0091  max mem: 3611
+Test: Total time: 0:02:20 (0.2312 s / it)
+Averaged stats: model_time: 0.1929 (0.1936)  evaluator_time: 0.0080 (0.0151)
+Accumulating evaluation results...
+DONE (t=0.53s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.504
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.718
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.583
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.219
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.540
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.630
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.195
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.621
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.625
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.253
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.673
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.753
+Epoch Completed: 2/10, Time: 1874.175146818161, Train Loss: 0.35511895405805716, Valid Loss: 0.4716213866393197
+
+VALIDATION PHASE: creating index...
+index created!
+Test:  [  0/607]  eta: 1:04:34  model_time: 0.3976 (0.3976)  evaluator_time: 0.2530 (0.2530)  time: 6.3826  data: 5.6745  max mem: 3611
+Test:  [100/607]  eta: 0:02:19  model_time: 0.1935 (0.1922)  evaluator_time: 0.0092 (0.0130)  time: 0.2193  data: 0.0104  max mem: 3611
+Test:  [200/607]  eta: 0:01:40  model_time: 0.1955 (0.1926)  evaluator_time: 0.0121 (0.0119)  time: 0.2208  data: 0.0084  max mem: 3611
+Test:  [300/607]  eta: 0:01:13  model_time: 0.1942 (0.1930)  evaluator_time: 0.0050 (0.0147)  time: 0.2133  data: 0.0091  max mem: 3611
+Test:  [400/607]  eta: 0:00:48  model_time: 0.1947 (0.1932)  evaluator_time: 0.0104 (0.0140)  time: 0.2200  data: 0.0084  max mem: 3611
+Test:  [500/607]  eta: 0:00:24  model_time: 0.1937 (0.1933)  evaluator_time: 0.0082 (0.0134)  time: 0.2176  data: 0.0094  max mem: 3611
+Test:  [600/607]  eta: 0:00:01  model_time: 0.1948 (0.1934)  evaluator_time: 0.0068 (0.0129)  time: 0.2149  data: 0.0085  max mem: 3611
+Test:  [606/607]  eta: 0:00:00  model_time: 0.1946 (0.1934)  evaluator_time: 0.0104 (0.0130)  time: 0.2182  data: 0.0083  max mem: 3611
+Test: Total time: 0:02:19 (0.2303 s / it)
+Averaged stats: model_time: 0.1946 (0.1934)  evaluator_time: 0.0104 (0.0130)
+Accumulating evaluation results...
+DONE (t=0.61s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.525
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.731
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.600
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.218
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.565
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.646
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.202
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.632
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.639
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.272
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.684
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.770
+Epoch Completed: 3/10, Time: 1737.0397264957428, Train Loss: 0.33596208192846716, Valid Loss: 0.4823934482364521
+
+VALIDATION PHASE: creating index...
+index created!
+Test:  [  0/607]  eta: 3:00:44  model_time: 0.2510 (0.2510)  evaluator_time: 10.1905 (10.1905)  time: 17.8657  data: 7.3879  max mem: 3611
+Test:  [100/607]  eta: 0:04:51  model_time: 0.1931 (0.1907)  evaluator_time: 0.0094 (0.1124)  time: 0.2194  data: 0.0088  max mem: 3611
+Test:  [200/607]  eta: 0:02:41  model_time: 0.1936 (0.1922)  evaluator_time: 0.0113 (0.0619)  time: 0.2198  data: 0.0083  max mem: 3611
+Test:  [300/607]  eta: 0:01:43  model_time: 0.1931 (0.1928)  evaluator_time: 0.0068 (0.0455)  time: 0.2142  data: 0.0086  max mem: 3611
+Test:  [400/607]  eta: 0:01:04  model_time: 0.1942 (0.1932)  evaluator_time: 0.0122 (0.0397)  time: 0.2221  data: 0.0099  max mem: 3611
+Test:  [500/607]  eta: 0:00:31  model_time: 0.1927 (0.1934)  evaluator_time: 0.0090 (0.0343)  time: 0.2205  data: 0.0096  max mem: 3611
+Test:  [600/607]  eta: 0:00:01  model_time: 0.1941 (0.1932)  evaluator_time: 0.0071 (0.0304)  time: 0.2166  data: 0.0096  max mem: 3611
+Test:  [606/607]  eta: 0:00:00  model_time: 0.1944 (0.1932)  evaluator_time: 0.0114 (0.0302)  time: 0.2187  data: 0.0086  max mem: 3611
+Test: Total time: 0:02:51 (0.2824 s / it)
+Averaged stats: model_time: 0.1944 (0.1932)  evaluator_time: 0.0114 (0.0302)
+Accumulating evaluation results...
+DONE (t=0.63s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.538
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.745
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.621
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.235
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.566
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.690
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.205
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.648
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.653
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.293
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.695
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.789
+
+TESTING PHASE EPOCH 3: creating index...
+index created!
+Test:  [  0/480]  eta: 0:10:06  model_time: 0.3791 (0.3791)  evaluator_time: 0.0061 (0.0061)  time: 1.2635  data: 0.8552  max mem: 3611
+Test:  [100/480]  eta: 0:01:13  model_time: 0.1726 (0.1720)  evaluator_time: 0.0039 (0.0039)  time: 0.1866  data: 0.0075  max mem: 3611
+Test:  [200/480]  eta: 0:00:52  model_time: 0.1724 (0.1722)  evaluator_time: 0.0031 (0.0040)  time: 0.1851  data: 0.0070  max mem: 3611
+Test:  [300/480]  eta: 0:00:33  model_time: 0.1728 (0.1727)  evaluator_time: 0.0036 (0.0040)  time: 0.1860  data: 0.0068  max mem: 3611
+Test:  [400/480]  eta: 0:00:15  model_time: 0.1739 (0.1729)  evaluator_time: 0.0044 (0.0040)  time: 0.1867  data: 0.0066  max mem: 3611
+Test:  [479/480]  eta: 0:00:00  model_time: 0.1732 (0.1728)  evaluator_time: 0.0044 (0.0040)  time: 0.1829  data: 0.0066  max mem: 3611
+Test: Total time: 0:01:30 (0.1875 s / it)
+Averaged stats: model_time: 0.1732 (0.1728)  evaluator_time: 0.0044 (0.0040)
+Accumulating evaluation results...
+DONE (t=0.31s).
+Epoch Completed: 4/10, Time: 1576.9557955265045, Train Loss: 0.32409651377098386, Valid Loss: 0.47764724278837883
+
+VALIDATION PHASE: creating index...
+index created!
+Test:  [  0/607]  eta: 0:21:41  model_time: 0.4149 (0.4149)  evaluator_time: 0.8706 (0.8706)  time: 2.1443  data: 0.6506  max mem: 3611
+Test:  [100/607]  eta: 0:02:00  model_time: 0.1944 (0.1931)  evaluator_time: 0.0088 (0.0192)  time: 0.2182  data: 0.0083  max mem: 3611
+Test:  [200/607]  eta: 0:01:32  model_time: 0.1946 (0.1936)  evaluator_time: 0.0113 (0.0145)  time: 0.2209  data: 0.0100  max mem: 3611
+Test:  [300/607]  eta: 0:01:08  model_time: 0.1924 (0.1937)  evaluator_time: 0.0050 (0.0132)  time: 0.2095  data: 0.0076  max mem: 3611
+Test:  [400/607]  eta: 0:00:46  model_time: 0.1959 (0.1940)  evaluator_time: 0.0111 (0.0128)  time: 0.2213  data: 0.0081  max mem: 3611
+Test:  [500/607]  eta: 0:00:23  model_time: 0.1935 (0.1939)  evaluator_time: 0.0092 (0.0124)  time: 0.2151  data: 0.0080  max mem: 3611
+Test:  [600/607]  eta: 0:00:01  model_time: 0.1947 (0.1940)  evaluator_time: 0.0072 (0.0120)  time: 0.2162  data: 0.0090  max mem: 3611
+Test:  [606/607]  eta: 0:00:00  model_time: 0.1943 (0.1940)  evaluator_time: 0.0091 (0.0121)  time: 0.2195  data: 0.0088  max mem: 3611
+Test: Total time: 0:02:14 (0.2223 s / it)
+Averaged stats: model_time: 0.1943 (0.1940)  evaluator_time: 0.0091 (0.0121)
+Accumulating evaluation results...
+DONE (t=0.59s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.546
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.759
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.635
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.228
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.575
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.703
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.206
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.641
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.645
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.282
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.691
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.768
+Epoch Completed: 5/10, Time: 1422.3278629779816, Train Loss: 0.3131238069314741, Valid Loss: 0.4664801574899789
+
+VALIDATION PHASE: creating index...
+index created!
+Test:  [  0/607]  eta: 0:20:15  model_time: 0.4026 (0.4026)  evaluator_time: 0.2361 (0.2361)  time: 2.0025  data: 1.1266  max mem: 3611
+Test:  [100/607]  eta: 0:01:58  model_time: 0.1947 (0.1934)  evaluator_time: 0.0095 (0.0134)  time: 0.2194  data: 0.0090  max mem: 3611
+Test:  [200/607]  eta: 0:01:31  model_time: 0.1948 (0.1934)  evaluator_time: 0.0112 (0.0121)  time: 0.2192  data: 0.0079  max mem: 3611
+Test:  [300/607]  eta: 0:01:08  model_time: 0.1952 (0.1937)  evaluator_time: 0.0060 (0.0119)  time: 0.2141  data: 0.0086  max mem: 3611
+Test:  [400/607]  eta: 0:00:46  model_time: 0.1939 (0.1940)  evaluator_time: 0.0112 (0.0119)  time: 0.2225  data: 0.0096  max mem: 3611
+Test:  [500/607]  eta: 0:00:23  model_time: 0.1938 (0.1940)  evaluator_time: 0.0129 (0.0120)  time: 0.2210  data: 0.0094  max mem: 3611
+Test:  [600/607]  eta: 0:00:01  model_time: 0.1933 (0.1939)  evaluator_time: 0.0069 (0.0117)  time: 0.2143  data: 0.0088  max mem: 3611
+Test:  [606/607]  eta: 0:00:00  model_time: 0.1942 (0.1940)  evaluator_time: 0.0088 (0.0118)  time: 0.2194  data: 0.0094  max mem: 3611
+Test: Total time: 0:02:14 (0.2221 s / it)
+Averaged stats: model_time: 0.1942 (0.1940)  evaluator_time: 0.0088 (0.0118)
+Accumulating evaluation results...
+DONE (t=0.65s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.533
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.735
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.613
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.217
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.557
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.715
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.206
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.650
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.656
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.294
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.697
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.797
+Epoch Completed: 6/10, Time: 1655.9893021583557, Train Loss: 0.3020337014468659, Valid Loss: 0.49700166078213803
+
+VALIDATION PHASE: creating index...
+index created!
+Test:  [  0/607]  eta: 0:20:39  model_time: 0.8184 (0.8184)  evaluator_time: 0.5373 (0.5373)  time: 2.0415  data: 0.6455  max mem: 3611
+Test:  [100/607]  eta: 0:01:58  model_time: 0.1948 (0.1978)  evaluator_time: 0.0105 (0.0166)  time: 0.2184  data: 0.0083  max mem: 3611
+Test:  [200/607]  eta: 0:01:31  model_time: 0.1937 (0.1959)  evaluator_time: 0.0100 (0.0134)  time: 0.2193  data: 0.0095  max mem: 3611
+Test:  [300/607]  eta: 0:01:08  model_time: 0.1954 (0.1955)  evaluator_time: 0.0067 (0.0128)  time: 0.2148  data: 0.0082  max mem: 3611
+Test:  [400/607]  eta: 0:00:46  model_time: 0.1948 (0.1954)  evaluator_time: 0.0097 (0.0124)  time: 0.2172  data: 0.0079  max mem: 3611
+Test:  [500/607]  eta: 0:00:23  model_time: 0.1941 (0.1952)  evaluator_time: 0.0101 (0.0122)  time: 0.2206  data: 0.0093  max mem: 3611
+Test:  [600/607]  eta: 0:00:01  model_time: 0.1957 (0.1952)  evaluator_time: 0.0077 (0.0118)  time: 0.2168  data: 0.0087  max mem: 3611
+Test:  [606/607]  eta: 0:00:00  model_time: 0.1956 (0.1951)  evaluator_time: 0.0107 (0.0119)  time: 0.2181  data: 0.0081  max mem: 3611
+Test: Total time: 0:02:15 (0.2226 s / it)
+Averaged stats: model_time: 0.1956 (0.1951)  evaluator_time: 0.0107 (0.0119)
+Accumulating evaluation results...
+DONE (t=0.60s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.530
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.746
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.607
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.216
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.569
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.686
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.206
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.639
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.644
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.278
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.687
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.780
+
+TESTING PHASE EPOCH 6: creating index...
+index created!
+Test:  [  0/480]  eta: 0:06:10  model_time: 0.1765 (0.1765)  evaluator_time: 0.0049 (0.0049)  time: 0.7722  data: 0.5578  max mem: 3611
+Test:  [100/480]  eta: 0:01:13  model_time: 0.1727 (0.1731)  evaluator_time: 0.0036 (0.0038)  time: 0.1853  data: 0.0066  max mem: 3611
+Test:  [200/480]  eta: 0:00:52  model_time: 0.1726 (0.1733)  evaluator_time: 0.0029 (0.0038)  time: 0.1844  data: 0.0065  max mem: 3611
+Test:  [300/480]  eta: 0:00:33  model_time: 0.1734 (0.1732)  evaluator_time: 0.0030 (0.0036)  time: 0.1859  data: 0.0064  max mem: 3611
+Test:  [400/480]  eta: 0:00:15  model_time: 0.1750 (0.1735)  evaluator_time: 0.0039 (0.0037)  time: 0.1889  data: 0.0077  max mem: 3611
+Test:  [479/480]  eta: 0:00:00  model_time: 0.1741 (0.1735)  evaluator_time: 0.0036 (0.0037)  time: 0.1831  data: 0.0067  max mem: 3611
+Test: Total time: 0:01:30 (0.1876 s / it)
+Averaged stats: model_time: 0.1741 (0.1735)  evaluator_time: 0.0036 (0.0037)
+Accumulating evaluation results...
+DONE (t=0.30s).
+Epoch Completed: 7/10, Time: 1544.7707498073578, Train Loss: 0.2955772073225518, Valid Loss: 0.5046179832267702
+
+VALIDATION PHASE: creating index...
+index created!
+Test:  [  0/607]  eta: 0:22:27  model_time: 0.5847 (0.5847)  evaluator_time: 0.8885 (0.8885)  time: 2.2197  data: 0.6947  max mem: 3611
+Test:  [100/607]  eta: 0:02:17  model_time: 0.1948 (0.1959)  evaluator_time: 0.0080 (0.0188)  time: 0.2193  data: 0.0090  max mem: 3611
+Test:  [200/607]  eta: 0:01:43  model_time: 0.1938 (0.1951)  evaluator_time: 0.0104 (0.0140)  time: 0.2191  data: 0.0084  max mem: 3611
+Test:  [300/607]  eta: 0:01:14  model_time: 0.1958 (0.1951)  evaluator_time: 0.0054 (0.0127)  time: 0.2148  data: 0.0087  max mem: 3611
+Test:  [400/607]  eta: 0:00:48  model_time: 0.1960 (0.1952)  evaluator_time: 0.0109 (0.0123)  time: 0.2218  data: 0.0089  max mem: 3611
+Test:  [500/607]  eta: 0:00:24  model_time: 0.1928 (0.1951)  evaluator_time: 0.0085 (0.0119)  time: 0.2170  data: 0.0086  max mem: 3611
+Test:  [600/607]  eta: 0:00:01  model_time: 0.1953 (0.1952)  evaluator_time: 0.0066 (0.0116)  time: 0.2159  data: 0.0086  max mem: 3611
+Test:  [606/607]  eta: 0:00:00  model_time: 0.1951 (0.1952)  evaluator_time: 0.0098 (0.0116)  time: 0.2183  data: 0.0084  max mem: 3611
+Test: Total time: 0:02:20 (0.2308 s / it)
+Averaged stats: model_time: 0.1951 (0.1952)  evaluator_time: 0.0098 (0.0116)
+Accumulating evaluation results...
+DONE (t=0.60s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.524
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.731
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.605
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.202
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.562
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.684
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.205
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.634
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.636
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.240
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.687
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.773
+Epoch Completed: 8/10, Time: 1666.8776314258575, Train Loss: 0.29230736811427166, Valid Loss: 0.5132151637195657
+
+VALIDATION PHASE: creating index...
+index created!
+Test:  [  0/607]  eta: 0:15:34  model_time: 0.3352 (0.3352)  evaluator_time: 0.3168 (0.3168)  time: 1.5397  data: 0.8079  max mem: 3611
+Test:  [100/607]  eta: 0:01:54  model_time: 0.1941 (0.1921)  evaluator_time: 0.0096 (0.0130)  time: 0.2179  data: 0.0081  max mem: 3611
+Test:  [200/607]  eta: 0:01:30  model_time: 0.1948 (0.1929)  evaluator_time: 0.0102 (0.0117)  time: 0.2192  data: 0.0081  max mem: 3611
+Test:  [300/607]  eta: 0:01:09  model_time: 0.1932 (0.1933)  evaluator_time: 0.0047 (0.0115)  time: 0.2151  data: 0.0105  max mem: 3611
+Test:  [400/607]  eta: 0:00:46  model_time: 0.1929 (0.1934)  evaluator_time: 0.0096 (0.0113)  time: 0.2147  data: 0.0076  max mem: 3611
+Test:  [500/607]  eta: 0:00:23  model_time: 0.1936 (0.1935)  evaluator_time: 0.0116 (0.0112)  time: 0.2192  data: 0.0085  max mem: 3611
+Test:  [600/607]  eta: 0:00:01  model_time: 0.1941 (0.1936)  evaluator_time: 0.0062 (0.0110)  time: 0.2132  data: 0.0077  max mem: 3611
+Test:  [606/607]  eta: 0:00:00  model_time: 0.1931 (0.1936)  evaluator_time: 0.0088 (0.0110)  time: 0.2158  data: 0.0079  max mem: 3611
+Test: Total time: 0:02:14 (0.2216 s / it)
+Averaged stats: model_time: 0.1931 (0.1936)  evaluator_time: 0.0088 (0.0110)
+Accumulating evaluation results...
+DONE (t=0.74s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.515
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.713
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.586
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.198
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.548
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.675
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.202
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.632
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.639
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.253
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.686
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.779
+Epoch Completed: 9/10, Time: 1501.9757096767426, Train Loss: 0.28842018390846574, Valid Loss: 0.5069394436690963
+
+VALIDATION PHASE: creating index...
+index created!
+Test:  [  0/607]  eta: 0:10:08  model_time: 0.2478 (0.2478)  evaluator_time: 0.1477 (0.1477)  time: 1.0019  data: 0.5867  max mem: 3611
+Test:  [100/607]  eta: 0:01:53  model_time: 0.1948 (0.1932)  evaluator_time: 0.0096 (0.0113)  time: 0.2216  data: 0.0103  max mem: 3611
+Test:  [200/607]  eta: 0:01:30  model_time: 0.1964 (0.1938)  evaluator_time: 0.0105 (0.0104)  time: 0.2194  data: 0.0083  max mem: 3611
+Test:  [300/607]  eta: 0:01:07  model_time: 0.1948 (0.1941)  evaluator_time: 0.0062 (0.0103)  time: 0.2163  data: 0.0104  max mem: 3611
+Test:  [400/607]  eta: 0:00:46  model_time: 0.1952 (0.1944)  evaluator_time: 0.0111 (0.0104)  time: 0.2200  data: 0.0087  max mem: 3611
+Test:  [500/607]  eta: 0:00:23  model_time: 0.1945 (0.1945)  evaluator_time: 0.0091 (0.0104)  time: 0.2175  data: 0.0083  max mem: 3611
+Test:  [600/607]  eta: 0:00:01  model_time: 0.1939 (0.1945)  evaluator_time: 0.0067 (0.0102)  time: 0.2128  data: 0.0077  max mem: 3611
+Test:  [606/607]  eta: 0:00:00  model_time: 0.1941 (0.1945)  evaluator_time: 0.0078 (0.0103)  time: 0.2160  data: 0.0083  max mem: 3611
+Test: Total time: 0:02:14 (0.2222 s / it)
+Averaged stats: model_time: 0.1941 (0.1945)  evaluator_time: 0.0078 (0.0103)
+Accumulating evaluation results...
+DONE (t=0.64s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.536
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.754
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.617
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.216
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.578
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.675
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.205
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.632
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.635
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.260
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.683
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.764
+
+TESTING PHASE EPOCH 9: creating index...
+index created!
+Test:  [  0/480]  eta: 0:05:56  model_time: 0.1782 (0.1782)  evaluator_time: 0.0046 (0.0046)  time: 0.7433  data: 0.5377  max mem: 3611
+Test:  [100/480]  eta: 0:01:12  model_time: 0.1737 (0.1722)  evaluator_time: 0.0037 (0.0034)  time: 0.1871  data: 0.0071  max mem: 3611
+Test:  [200/480]  eta: 0:00:52  model_time: 0.1728 (0.1730)  evaluator_time: 0.0028 (0.0033)  time: 0.1852  data: 0.0068  max mem: 3611
+Test:  [300/480]  eta: 0:00:33  model_time: 0.1750 (0.1735)  evaluator_time: 0.0028 (0.0033)  time: 0.1859  data: 0.0067  max mem: 3611
+Test:  [400/480]  eta: 0:00:14  model_time: 0.1733 (0.1738)  evaluator_time: 0.0028 (0.0033)  time: 0.1852  data: 0.0063  max mem: 3611
+Test:  [479/480]  eta: 0:00:00  model_time: 0.1740 (0.1737)  evaluator_time: 0.0030 (0.0033)  time: 0.1821  data: 0.0067  max mem: 3611
+Test: Total time: 0:01:29 (0.1868 s / it)
+Averaged stats: model_time: 0.1740 (0.1737)  evaluator_time: 0.0030 (0.0033)
+Accumulating evaluation results...
+DONE (t=0.27s).
+Epoch Completed: 10/10, Time: 1504.9612674713135, Train Loss: 0.28454401174398386, Valid Loss: 0.5430580296444736
+
+VALIDATION PHASE: creating index...
+index created!
+Test:  [  0/607]  eta: 0:20:05  model_time: 0.2717 (0.2717)  evaluator_time: 0.5831 (0.5831)  time: 1.9859  data: 0.9608  max mem: 3611
+Test:  [100/607]  eta: 0:02:14  model_time: 0.1953 (0.1929)  evaluator_time: 0.0093 (0.0152)  time: 0.2188  data: 0.0086  max mem: 3611
+Test:  [200/607]  eta: 0:01:38  model_time: 0.1944 (0.1936)  evaluator_time: 0.0101 (0.0123)  time: 0.2188  data: 0.0092  max mem: 3611
+Test:  [300/607]  eta: 0:01:11  model_time: 0.1963 (0.1942)  evaluator_time: 0.0051 (0.0115)  time: 0.2155  data: 0.0095  max mem: 3611
+Test:  [400/607]  eta: 0:00:47  model_time: 0.1966 (0.1945)  evaluator_time: 0.0097 (0.0112)  time: 0.2186  data: 0.0083  max mem: 3611
+Test:  [500/607]  eta: 0:00:24  model_time: 0.1949 (0.1946)  evaluator_time: 0.0082 (0.0110)  time: 0.2166  data: 0.0084  max mem: 3611
+Test:  [600/607]  eta: 0:00:01  model_time: 0.1958 (0.1946)  evaluator_time: 0.0063 (0.0106)  time: 0.2173  data: 0.0092  max mem: 3611
+Test:  [606/607]  eta: 0:00:00  model_time: 0.1944 (0.1946)  evaluator_time: 0.0092 (0.0106)  time: 0.2176  data: 0.0089  max mem: 3611
+Test: Total time: 0:02:18 (0.2280 s / it)
+Averaged stats: model_time: 0.1944 (0.1946)  evaluator_time: 0.0092 (0.0106)
+Accumulating evaluation results...
+DONE (t=0.71s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.553
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.769
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.636
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.203
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.592
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.689
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.208
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.634
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.636
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.254
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.687
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.759
