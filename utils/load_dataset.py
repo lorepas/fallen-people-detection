@@ -54,7 +54,7 @@ class FallenPeople(Dataset):
     
     def train_transform():
         return A.Compose([
-            A.RandomCrop(width=640, height=480, p=0.6),
+            A.RandomCrop(width=450, height=450, p=0.6),
             A.HorizontalFlip(p=0.5),
             A.OneOf([
                 A.RandomBrightnessContrast(p=0.2),

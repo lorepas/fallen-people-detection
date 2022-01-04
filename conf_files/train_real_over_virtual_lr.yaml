@@ -1,0 +1,46 @@
+dataset:
+    ensamble:
+        flag: false
+        train_virtual: ""
+        train_real: ""
+        valid_real: ""
+        split: ""
+    root_train: "real_dataset/train"
+    root_valid: "real_dataset/valid"
+    root_test: "test_imgs"
+
+    train:
+        virtual: ""
+        real: "real_train.txt"
+
+    test: "test_set.txt"
+
+    validation:
+        valid: "real_valid.txt"
+        percentage_val      : 0.8
+
+model:
+    device               : "cuda"    # cpu or cuda
+    backbone             : "resnet50" 
+    pretrained           : false
+    pretrained_backbone  : false
+    num_class            : 2
+    trainable_layers     : ""
+
+train:
+    log_file            : "trainlogs/real_over_virtual_train_log_with_lr_2.txt"
+    batch_size          : 2
+    num_workers         : 8
+    epochs              : 10
+    sampler             : false
+    path_saved_model    : "models/checkpoint_train_real_over_virtual_with_lr_2.pth"
+    checkpoint          : ""      # checkpoint to eventually resume
+    pretrained_model    : "models/checkpoint_train_virtual.pth"      # pre-trained model to resume
+    lr                  : 0.005
+    momentum            : 0.9
+    weight_decay        : 0.0005
+    lr_scheduler        :
+        flag                : true
+        lr_gamma            : 0.1
+        lr_step_size        : 3
+    plot                : "snapshots/plots/loss_real_over_virtual_with_lr_2.png"

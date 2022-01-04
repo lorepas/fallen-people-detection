@@ -87,25 +87,18 @@ def classifier_performance(dataset, model, device, fallen_or_not, tr = 0.7):
             fp += (num_fall_pred - num_fall_gt)
     return tp, fp, fn
 
-def inference(mod, dat, det_type, filename):
-    assert mod == "real" or mod == "virtual" or mod == "vtr" or mod == "var", "Model must be one of: real, virtual, vtr (virtual than real) or var (virtual and real)"
+def inference(mod, dat, filename):
     assert dat == "fpds" or dat == "ufd" or dat == "elderly", "Dataset for inference must be one of: fpds, ufd or elderly"
-    assert det_type == "no_fall" or det_type == "fall", "Detection for inference must be 1 or 2"
-
+    
     log_result = open(os.path.join("results",filename), "w")
 
-    if mod == "real":
-        model_path = "./models/checkpoint_train_real.pth"
-        log_result.write("******PERFORMANCES USING ONLY REAL******\n")
-    elif mod == "virtual":
-        model_path = "./models/checkpoint_train_virtual.pth"
-        log_result.write("******PERFORMANCES USING ONLY VIRTUAL******\n")
-    elif mod == "vtr":
-        model_path = "./models/checkpoint_train_real_over_virtual.pth"
-        log_result.write("******PERFORMANCES USING VIRTUAL AND THEN REAL******\n")
-    elif mod == "var":
-        model_path = "./models/checkpoint_train_virtual_and_real.pth"
-        log_result.write("******PERFORMANCES USING VIRTUAL AND REAL******\n")
+    if not os.path.exists(os.path.join("models",mod)):
+        print("Insert a right model!")
+        sys.exit(1)
+    else:
+        model_path = os.path.join("models",mod)
+        log_result.write(f"******PERFORMANCES USING {mod}******\n")
+
 
     if dat == "fpds":
         test_set = load_data("test_set.txt")
@@ -122,13 +115,6 @@ def inference(mod, dat, det_type, filename):
         test_dataset = FallenPeople(test_elderly, "test_elderly", FallenPeople.valid_test_transform())
         log_result.write(">>> Used Elderly dataset\n")
 
-    if det_type == "no_fall":
-        dt = 1
-        log_result.write(">>> No-fall detection\n")
-    else:
-        dt = 2
-        log_result.write(">>> Fall detection\n")
-
     def collate_fn(batch):
         return tuple(zip(*batch))
 
@@ -144,18 +130,50 @@ def inference(mod, dat, det_type, filename):
     sys.stdout = log_result
     #mAP evaluation
     print("\n--- mAP metrics ---\n")
-    evaluate(model, test_data_loader, device=device)
-    print("\n--- Classification metrics ---\n")
-    #classification metrics
+    elm = evaluate(model, test_data_loader, device=device)
+    elm.summarize()
+    print("\n--- Classification metrics FALL ---\n")
+    #classification metrics fall
     recall, precision, f1_score = [],[],[]
     for thr in range(0,10,1):
-        tp, fp, fn = classifier_performance(test_dataset, model, device, dt, float(thr/10))
+        tp, fp, fn = classifier_performance(test_dataset, model, device, 2, float(thr/10))
         if (tp+fn) == 0 or (tp+fp) == 0:
             print("Bad performances")
-            break
-        rec = tp / (tp+fn)
-        prec = tp/ (tp+fp)
-        f1_s = 2/((1/rec)+(1/prec))
+            rec = 0
+            prec = 0
+            f1_s = 0
+        else:
+            rec = tp / (tp+fn)
+            prec = tp/ (tp+fp)
+            f1_s = 2/((1/rec)+(1/prec))
+        recall.append(round(rec,2))
+        precision.append(round(prec,2))
+        f1_score.append(round(f1_s,2))
+        print(f"-------------------- THR: {float(thr/10)} --------------------")
+        print(f"TP: {tp}\tFN: {fn}\tFP: {fp}")
+        print(f"Recall: {rec:.2f}")
+        print(f"Precision: {prec:.2f}")
+        print(f"F1-score: {f1_s:.2f}")
+        print("-----------------------------------------------------------")
+    
+    print(f"Recall@[0.0:0.9]: {recall}")
+    print(f"Precision@[0.0:0.9]: {precision}")
+    print(f"F1-score@[0.0:0.9]: {f1_score}")
+    
+    print("\n--- Classification metrics NO FALL ---\n")
+    #classification metrics no fall
+    recall, precision, f1_score = [],[],[]
+    for thr in range(0,10,1):
+        tp, fp, fn = classifier_performance(test_dataset, model, device, 1, float(thr/10))
+        if (tp+fn) == 0 or (tp+fp) == 0:
+            print("Bad performances")
+            rec = 0
+            prec = 0
+            f1_s = 0
+        else:
+            rec = tp / (tp+fn)
+            prec = tp/ (tp+fp)
+            f1_s = 2/((1/rec)+(1/prec))
         recall.append(round(rec,2))
         precision.append(round(prec,2))
         f1_score.append(round(f1_s,2))
@@ -176,13 +194,12 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--model_type', required=True, help="Choose between real, virtual, vtr, var")
-    parser.add_argument('--dt_type', required=True, help="Choose between fpds, ufd, elderly")
-    parser.add_argument('--detection_type', required=True, help="Choose between fall or no_fall")
+    parser.add_argument('--model', required=True, help="Choose between real, virtual, vtr, var")
+    parser.add_argument('--dataset', required=True, help="Choose between fpds, ufd, elderly")
     parser.add_argument('--filename', required=True, help="Insert filename")
     args = parser.parse_args()
 
     if ".txt" not in args.filename:
         print("Insert the name with the extension")
         sys.exit(1)
-    inference(args.model_type, args.dt_type, args.detection_type, args.filename)
+    inference(args.model, args.dataset, args.filename)
