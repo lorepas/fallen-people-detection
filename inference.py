@@ -135,8 +135,8 @@ def inference(mod, dat, filename):
     print("\n--- Classification metrics FALL ---\n")
     #classification metrics fall
     recall, precision, f1_score = [],[],[]
-    for thr in range(0,10,1):
-        tp, fp, fn = classifier_performance(test_dataset, model, device, 2, float(thr/10))
+    for thr in np.arange(0,1,0.1):
+        tp, fp, fn = classifier_performance(test_dataset, model, device, 2, thr)
         if (tp+fn) == 0 or (tp+fp) == 0:
             print("Bad performances")
             rec = 0
@@ -149,7 +149,7 @@ def inference(mod, dat, filename):
         recall.append(round(rec,2))
         precision.append(round(prec,2))
         f1_score.append(round(f1_s,2))
-        print(f"-------------------- THR: {float(thr/10)} --------------------")
+        print(f"-------------------- THR: {thr} --------------------")
         print(f"TP: {tp}\tFN: {fn}\tFP: {fp}")
         print(f"Recall: {rec:.2f}")
         print(f"Precision: {prec:.2f}")
@@ -163,8 +163,8 @@ def inference(mod, dat, filename):
     print("\n--- Classification metrics NO FALL ---\n")
     #classification metrics no fall
     recall, precision, f1_score = [],[],[]
-    for thr in range(0,10,1):
-        tp, fp, fn = classifier_performance(test_dataset, model, device, 1, float(thr/10))
+    for thr in np.arange(0,1,0.1):
+        tp, fp, fn = classifier_performance(test_dataset, model, device, 1, thr)
         if (tp+fn) == 0 or (tp+fp) == 0:
             print("Bad performances")
             rec = 0
@@ -177,7 +177,7 @@ def inference(mod, dat, filename):
         recall.append(round(rec,2))
         precision.append(round(prec,2))
         f1_score.append(round(f1_s,2))
-        print(f"-------------------- THR: {float(thr/10)} --------------------")
+        print(f"-------------------- THR: {thr} --------------------")
         print(f"TP: {tp}\tFN: {fn}\tFP: {fp}")
         print(f"Recall: {rec:.2f}")
         print(f"Precision: {prec:.2f}")
