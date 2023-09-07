@@ -40,3 +40,16 @@ python create_video.py --video video_1.avi --model checkpoint_train_real_over_vi
 ```
 
 Here we have `--video` that specify the video's name. In `--model` you have to put the model used to predict the video. In `--output` you specify the output video name and `--threshold` is the threshold used for that particular model.
+
+## Reference
+**Learning to detect fallen people in virtual worlds**. *Fabio Carrara, Lorenzo Pasco, Claudio Gennaro, Fabrizio Falchi.* In 2022 Proceedings of the 19th International Conference on Content-based Multimedia Indexing (CBMI). (pp. 126-130). ACM. [[DOI](https://doi.org/10.1145/3549555.3549573)]
+
+```
+@inproceedings{carrara2022learning,
+  title={Learning to detect fallen people in virtual worlds},
+  author={Carrara, Fabio and Pasco, Lorenzo and Gennaro, Claudio and Falchi, Fabrizio},
+  booktitle={Proceedings of the 19th International Conference on Content-based Multimedia Indexing},
+  pages={126--130},
+  year={2022}
+}
+```
